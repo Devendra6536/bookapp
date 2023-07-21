@@ -12,4 +12,10 @@ public class EntryPointController {
     public String home() {
         return "Hi all! this is devendra kumar(java backend developer) welcome to the dashborad portal";
     }
+
+    @RequestMapping("/about")
+    @ResponseBody
+    public String about() {
+        return "Software engineer";
+    }
 }
