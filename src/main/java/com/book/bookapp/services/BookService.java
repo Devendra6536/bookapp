@@ -50,4 +50,20 @@ public class BookService {
         }
         return b;
     }
+
+    public Book deleteBook(int id) {
+
+        Book b = null;
+        Iterator<Book> itr = list.iterator();
+
+        while (itr.hasNext()) {
+            Book book = (Book) itr.next();
+            if (book.getId() == id) {
+                b = book;
+                itr.remove();
+            }
+        }
+        return b;
+
+    }
 }

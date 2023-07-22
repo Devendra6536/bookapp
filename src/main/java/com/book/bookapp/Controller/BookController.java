@@ -3,6 +3,7 @@ package com.book.bookapp.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +51,12 @@ public class BookController {
     @GetMapping("/book_by_title/{title}")
     public Book getOneBookByTitle(@PathVariable("title") String title) {
         Book b = this.bookService.getBookByTitle(title);
+        return b;
+    }
+
+    @DeleteMapping("/delete_books/{id}")
+    public Book deleteBook(@PathVariable("id") int id) {
+        Book b = this.bookService.deleteBook(id);
         return b;
     }
 }
