@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.book.bookapp.entities.Book;
@@ -22,7 +24,7 @@ public class BookController {
         book.setId(1);
         book.setTitle("Java Spring boot complete guide");
         book.setAuthor("Rakesh yadav");
-        List<Book> books = bookService.getBooks();
+        List<Book> books = this.bookService.getBooks();
         System.out.println(books);
         return books;
     }
@@ -30,11 +32,24 @@ public class BookController {
     @GetMapping("/book/{id}")
     public Book getBookById(@PathVariable("id") int id) {
 
-        return bookService.getBookById(id);
+        return this.bookService.getBookById(id);
     }
 
     @GetMapping("/home")
     public String home() {
         return "Home page controller";
+    }
+
+    @PostMapping("/add_book")
+    public Book addNewBook(@RequestBody Book book) {
+        Book b = this.bookService.addBook(book);
+        System.out.println("this is the added book " + b);
+        return b;
+    }
+
+    @GetMapping("/book_by_title/{title}")
+    public Book getOneBookByTitle(@PathVariable("title") String title) {
+        Book b = this.bookService.getBookByTitle(title);
+        return b;
     }
 }

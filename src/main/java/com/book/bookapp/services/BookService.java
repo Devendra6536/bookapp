@@ -17,6 +17,7 @@ public class BookService {
         list.add(new Book(10, "Mathmatics 73000", "By Rakesh yadav"));
         list.add(new Book(11, "English by plinth to paramount", "By neetu mam"));
         list.add(new Book(12, "Hindi", "by Aditya publication"));
+        list.add(new Book(13, "Gs By lucent", "Lucent publications"));
     }
 
     public List<Book> getBooks() {
@@ -35,4 +36,18 @@ public class BookService {
 
     }
 
+    public Book addBook(Book book) {
+        list.add(book);
+        return book;
+    }
+
+    public Book getBookByTitle(String title) {
+        Book b = null;
+        for (Book book : list) {
+            if (book.getTitle().equals(title)) {
+                b = book;
+            }
+        }
+        return b;
+    }
 }
