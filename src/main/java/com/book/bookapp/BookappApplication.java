@@ -10,7 +10,7 @@ public class BookappApplication {
 		SpringApplication.run(BookappApplication.class, args);
 		System.out.println("Booking applicatoin");
 		System.out.println("Hi all! This is Devendra kumar pal(backend developer)");
-		System.out.println("Cavisson");
+		System.out.println("Cavisson96");
 
 	}
 
