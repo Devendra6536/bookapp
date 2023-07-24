@@ -1,6 +1,7 @@
 package com.book.bookapp.services;
 
 import java.util.ArrayList;
+import java.util.stream.Collector;
 
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.util.*;
 @Component
 public class BookService {
 
+    /* get all book at a time */
     private static List<Book> list = new ArrayList<>();
     static {
 
@@ -24,6 +26,7 @@ public class BookService {
         return list;
     }
 
+    /* get book by id */
     public Book getBookById(int id) {
         Book b = null;
         for (Book book : list) {
@@ -41,6 +44,7 @@ public class BookService {
         return book;
     }
 
+    /* get one book */
     public Book getBookByTitle(String title) {
         Book b = null;
         for (Book book : list) {
@@ -50,6 +54,8 @@ public class BookService {
         }
         return b;
     }
+
+    /* deleting the book */
 
     public Book deleteBook(int id) {
 
@@ -65,5 +71,16 @@ public class BookService {
         }
         return b;
 
+    }
+
+    // updating the books
+    public Book updateBook(Book book, int id) {
+        final Book b = list.stream().map(bk -> {
+            if (bk.getId() == id) {
+                b.setAuthor(book.getAuthor());
+                b.setTitle(book.getTitle());
+            }
+            return b;
+        }).collect(Collector.List());
     }
 }
