@@ -2,6 +2,7 @@ package com.book.bookapp.services;
 
 import java.util.ArrayList;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ public class BookService {
         list.add(new Book(11, "English by plinth to paramount", "By neetu mam"));
         list.add(new Book(12, "Hindi", "by Aditya publication"));
         list.add(new Book(13, "Gs By lucent", "Lucent publications"));
+
     }
 
     public List<Book> getBooks() {
@@ -57,30 +59,27 @@ public class BookService {
 
     /* deleting the book */
 
-    public Book deleteBook(int id) {
+    public void deleteBook(int id) {
 
-        Book b = null;
         Iterator<Book> itr = list.iterator();
-
         while (itr.hasNext()) {
             Book book = (Book) itr.next();
             if (book.getId() == id) {
-                b = book;
                 itr.remove();
             }
         }
-        return b;
-
     }
 
     // updating the books
-    public Book updateBook(Book book, int id) {
-        final Book b = list.stream().map(bk -> {
+    public void updateBook(Book book, int id) {
+        list = list.stream().map(bk -> {
             if (bk.getId() == id) {
-                b.setAuthor(book.getAuthor());
-                b.setTitle(book.getTitle());
+                bk.setAuthor(book.getAuthor());
+                bk.setTitle(book.getTitle());
             }
-            return b;
-        }).collect(Collector.List());
+
+            return bk;
+        }).collect(Collectors.toList());
+
     }
 }
