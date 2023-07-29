@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,17 +34,14 @@ public class BookController {
 
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getAllbooksBooks() {
-        Book book = new Book();
-        book.setId(1);
-        book.setTitle("Java Spring boot complete guide");
-        book.setAuthor("Rakesh yadav");
+
         List<Book> books = this.bookService.getBooks();
 
         if (books.size() <= 0) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        System.err.println("\t\t\t\t***********All books**********************");
+        System.err.println("\t\t\t\t******************All books**********************");
         System.out.println(ANSI_GREEN + books + ANSI_RESET);
         return ResponseEntity.of(Optional.of(books));
     }
@@ -74,7 +70,7 @@ public class BookController {
             System.out.println(ANSI_GREEN + " Book is added successfully" + b + ANSI_RESET);
             return ResponseEntity.of(Optional.of(b));
         } catch (Exception e) {
-            // TODO: handle exception
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -93,10 +89,25 @@ public class BookController {
             this.bookService.deleteBook(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {
-            // TODO: handle exception
+
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @DeleteMapping("/delete_by_title/{title}")
+    public ResponseEntity<List<Book>> deleteAllBooksByTitle(@PathVariable("title") String title) {
+        List<Book> b = null;
+        try {
+            b = this.bookService.delete_book_by_title(title);
+            return ResponseEntity.of(Optional.of(b));
+
+        } catch (Exception e) {
+
+            System.out.println("There is a server error the books not deleted");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
     @PutMapping("/update_books/{id}")
@@ -107,7 +118,7 @@ public class BookController {
             this.bookService.updateBook(book, id);
             return ResponseEntity.of(Optional.of(book));
         } catch (Exception e) {
-            // TODO: handle exception
+
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

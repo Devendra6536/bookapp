@@ -12,8 +12,7 @@ public class BookappApplication {
 		String ANSI_RESET = "\u001B[0m";
 		String ANSI_GREEN = "\u001B[32m";
 		System.out.println(ANSI_GREEN + "Wait for a second your Application is ready.............." + ANSI_RESET);
-		Thread t = new Thread();
-		t.sleep(2000);
+		Thread.sleep(2000);
 
 		System.out.println(
 				"\n\n\t\t\t\t***********************Book Application | Library management system in spring boot***********************\t\t\t\t\t");
